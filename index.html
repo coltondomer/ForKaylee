@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Kaylee</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#a9dcf7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="For Kaylee">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#e6f6ff;--bg2:#fff;--card:#fff;--ink:#12354a;--mute:#5f8398;--blue:#a9dcf7;--deep:#2f95cf;--line:#d3ecf9;--shadow:0 14px 30px -16px rgba(47,149,207,.45);--btn:linear-gradient(135deg,#c4e8fb,#7cc6ee);--btnink:#0c2d42}
+:root[data-theme="dark"]{--bg1:#0a1620;--bg2:#102431;--card:#152a38;--ink:#e8f5fd;--mute:#8db0c4;--blue:#3f8fba;--deep:#8fd3f7;--line:#22404f;--shadow:0 14px 30px -16px rgba(0,0,0,.7)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{background:linear-gradient(180deg,var(--bg1),var(--bg2)) fixed;color:var(--ink);font:16px/1.45 Nunito,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:env(safe-area-inset-top,0) 0 0}
+.wrap{max-width:520px;margin:0 auto;padding:14px 18px 130px}
+h1,h2,.serif{font-family:Fraunces,Georgia,serif;font-weight:700;margin:0}
+h2{font-size:21px;margin-bottom:6px}
+.mute{color:var(--mute);font-size:14px}
+button{font:inherit;font-weight:800;border:0;border-radius:999px;padding:12px 22px;background:var(--btn);color:var(--btnink);cursor:pointer;transition:transform .12s}
+button:active{transform:scale(.96)}
+button.soft{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+button:disabled{opacity:.5}
+button:focus-visible,input:focus-visible{outline:3px solid var(--deep);outline-offset:2px}
+input{font:inherit;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);width:100%}
+.card{background:var(--card);border-radius:26px;padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:6px 0 4px}
+.top h1{font-size:28px;color:var(--deep);font-style:italic}
+.icon{width:42px;height:42px;padding:0;display:grid;place-items:center;font-size:18px}
+/* hero */
+.hero{text-align:center;padding:8px 0 20px}
+.hero svg{width:100%;max-width:340px;height:auto}
+.days{font-family:Fraunces,Georgia,serif;font-size:76px;font-weight:700;line-height:1;color:var(--deep);margin-top:2px}
+.state{display:inline-flex;gap:8px;align-items:center;font-weight:800;font-size:14px;background:var(--card);padding:7px 14px;border-radius:999px;box-shadow:var(--shadow);margin-top:12px}
+.dot{width:9px;height:9px;border-radius:50%;background:#9bb}
+.live .dot{background:#3fcf8e;box-shadow:0 0 0 4px rgba(63,207,142,.25)}
+.line{stroke:var(--blue);stroke-width:3;stroke-dasharray:3 9;stroke-linecap:round}
+.live-on .line{stroke:var(--deep);stroke-dasharray:none}
+.beat{transform-origin:center;transform-box:fill-box}
+.live-on .beat{animation:beat 1.6s ease-in-out infinite}
+@keyframes beat{50%{transform:scale(1.2)}}
+@media (prefers-reduced-motion:reduce){.live-on .beat{animation:none}}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.field{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 0}
+.field input{width:auto}
+/* tabs */
+.tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:4px;padding:6px;background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:999px;box-shadow:var(--shadow);width:min(92vw,420px)}
+.tabs button{flex:1;background:none;color:var(--mute);padding:9px 4px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:2px;border-radius:999px}
+.tabs button span{font-size:20px;line-height:1}
+.tabs button.on{background:var(--btn);color:var(--btnink)}
+section{display:none}section.on{display:block}
+/* games */
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.cell{aspect-ratio:1;border-radius:20px;background:var(--bg1);border:0;font-size:40px;padding:0;color:var(--deep)}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;background:var(--bg1);color:var(--ink);border-radius:18px;padding:14px 16px}
+.opt.sel{background:var(--btn);color:var(--btnink)}
+/* notes */
+.notes{display:flex;flex-direction:column;gap:8px;max-height:46vh;overflow:auto;margin-bottom:12px}
+.bub{max-width:80%;padding:10px 14px;border-radius:20px;background:var(--bg1);align-self:flex-start;word-wrap:break-word}
+.bub.me{align-self:flex-end;background:var(--btn);color:var(--btnink)}
+/* video */
+.vwrap{position:relative;border-radius:24px;overflow:hidden;background:#0b2533;aspect-ratio:3/4;margin-bottom:14px}
+.vwrap video{width:100%;height:100%;object-fit:cover}
+#me{position:absolute;right:10px;bottom:10px;width:28%;height:auto;aspect-ratio:3/4;border-radius:14px;border:2px solid #fff}
+.empty{position:absolute;inset:0;display:grid;place-items:center;color:#9fc7dd;text-align:center;padding:20px}
+/* overlays */
+.ov{position:fixed;inset:0;z-index:20;background:linear-gradient(180deg,var(--bg1),var(--bg2));display:none;overflow:auto;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.ov.on{display:block}
+.ov .in{max-width:420px;margin:0 auto;padding:12vh 24px 40px;text-align:center}
+.code{font-family:Fraunces,Georgia,serif;font-size:50px;letter-spacing:.14em;font-weight:700;color:var(--deep);margin:16px 0 10px;padding-left:.14em}
+.pop{position:fixed;inset:0;pointer-events:none;display:grid;place-items:center;font-size:110px;opacity:0;transform:scale(.6);transition:all .45s;z-index:30}
+.pop.show{opacity:1;transform:scale(1)}
+.rxrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.rx,.mood{padding:10px 14px;font-size:24px;background:var(--bg1);color:inherit}
+.mood.on{background:var(--btn)}
+.ok{background:#bdf0d2!important;color:#0c3a22!important}.bad{background:#f7c9d0!important;color:#4a1220!important}
+.vt{font-size:23px;line-height:1.35;margin:8px 0;font-weight:500}
+.pr{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.pr.dn span{opacity:.55;text-decoration:line-through}.pr small{display:block;color:var(--mute)}
+.pr button{padding:6px 12px;font-size:20px;background:var(--bg1)}
+.ph{width:100%;aspect-ratio:1/1;max-height:62vh;border-radius:34px;overflow:hidden;box-shadow:var(--shadow);margin:0 0 16px;position:relative;background:var(--blue)}
+.ph img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(10,22,32,.45))}
+.ph .tag{position:absolute;left:18px;bottom:14px;z-index:1;color:#fff;font-family:Fraunces,Georgia,serif;font-style:italic;font-size:24px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.logo{width:128px;height:128px;border-radius:50%;object-fit:cover;border:4px solid #fff;box-shadow:var(--shadow)}
+.err{color:#d0556a;font-weight:700;min-height:22px}
+</style>
+</head>
+<body>
+
+<!-- Pairing -->
+<div class="ov" id="welcome"><div class="in">
+  <img class="logo" id="logo" src="photo.jpg" alt="">
+  <h1 class="serif" style="font-size:40px;color:var(--deep);margin:14px 0 6px">For Kaylee</h1>
+  <p class="mute" style="font-size:17px">A private space for the two of you, with Christ at the center.</p>
+  <div style="margin-top:34px;display:grid;gap:12px">
+    <button id="mk">Create our code</button>
+    <button class="soft" id="hv">I have a code</button>
+  </div>
+</div></div>
+
+<div class="ov" id="show"><div class="in">
+  <h2 style="font-size:28px">Your code</h2>
+  <div class="code" id="codeBig"></div>
+  <p class="mute">Send this code to your person. They open this site, tap “I have a code,” and enter it.</p>
+  <div class="row" style="justify-content:center;margin:18px 0"><button id="cp">Copy code</button><button class="soft" id="sh">Share</button></div>
+  <button id="go" style="margin-top:12px">Continue</button>
+</div></div>
+
+<div class="ov" id="join"><div class="in">
+  <h2 style="font-size:28px">Enter your code</h2>
+  <p class="mute">It’s 6 letters and numbers.</p>
+  <input id="ci" maxlength="7" autocomplete="off" autocapitalize="characters" style="text-align:center;font-size:28px;letter-spacing:.2em;margin:18px 0 8px;text-transform:uppercase">
+  <div class="err" id="cerr"></div>
+  <div class="row" style="justify-content:center"><button id="jn">Connect</button><button class="soft" id="jb">Back</button></div>
+</div></div>
+
+<!-- Incoming call -->
+<div class="ov" id="ring"><div class="in">
+  <div style="font-size:70px">📞</div>
+  <h2 style="font-size:30px;margin:10px 0 24px">Your person is calling</h2>
+  <div class="row" style="justify-content:center"><button id="ans">Answer</button><button class="soft" id="dec">Decline</button></div>
+</div></div>
+
+<div class="wrap" id="app" hidden>
+  <div class="top"><h1>For Kaylee</h1><button class="soft icon" id="theme" aria-label="Toggle theme">🌙</button></div>
+
+  <section id="home" class="on">
+    <div class="hero" id="hero">
+      <div class="ph"><img id="hp" src="photo.jpg" alt="The two of us"><div class="tag">For Kaylee</div></div>
+      <svg viewBox="0 0 340 120" aria-hidden="true">
+        <line class="line" x1="62" y1="60" x2="278" y2="60"/>
+        <circle cx="46" cy="60" r="30" fill="var(--blue)"/><text id="l1" x="46" y="66" text-anchor="middle" font-size="16" font-weight="800" fill="#0c2d42" font-family="Nunito,sans-serif">You</text>
+        <circle cx="294" cy="60" r="30" id="orb2" fill="var(--blue)" opacity=".55"/><text id="l2" x="294" y="66" text-anchor="middle" font-size="16" font-weight="800" fill="#0c2d42" font-family="Nunito,sans-serif">Them</text>
+        <path class="beat" transform="translate(155 38) scale(.5)" d="M32 49C14 37 14 21 24 19c5-1 8 2 8 5 0-3 3-6 8-5 10 2 10 18-8 30z" fill="var(--deep)"/>
+      </svg>
+      <div class="days" id="days">–</div>
+      <div class="mute" id="since">days together</div>
+      <div class="state" id="state"><span class="dot"></span><span id="stxt">Connecting…</span></div>
+      <div class="mute" id="theirline" style="margin-top:10px"></div>
+    </div>
+    <div class="card" style="text-align:center">
+      <h2>Thinking of you</h2>
+      <div class="rxrow"><button class="rx" data-e="💙">💙</button><button class="rx" data-e="🤗">🤗</button><button class="rx" data-e="😘">😘</button><button class="rx" data-e="🙏">🙏</button></div>
+      <p class="mute" style="margin:0">Tap to send it to their screen. Your mood:</p>
+      <div class="rxrow" id="moods"></div>
+    </div>
+    <div class="card">
+      <div class="field"><b>We got together</b><input type="date" id="start"></div>
+      <div class="field"><b>Next visit</b><input type="date" id="visit"></div>
+      <div class="serif" style="font-size:24px;color:var(--deep);margin-top:6px" id="vdays"></div>
+    </div>
+    <div class="card">
+      <h2>Our code</h2>
+      <div class="serif" style="font-size:30px;letter-spacing:.12em;color:var(--deep)" id="mycode"></div>
+      <p class="mute">Both of you need this site open to play, chat, or call.</p>
+      <div class="field"><b>Your name</b><input id="nm" maxlength="12" placeholder="Name"></div>
+      <div class="field"><b>Our photo</b><button class="soft" id="chp" style="padding:8px 16px">Change</button></div><input type="file" id="pf" accept="image/*" hidden>
+      <button class="soft" id="unpair">Use a different code</button>
+    </div>
+  </section>
+
+  <section id="play">
+    <div class="card">
+      <h2>Bible trivia ✝️</h2>
+      <div id="trv"></div>
+    </div>
+    <div class="card">
+      <h2>Date night idea</h2>
+      <p id="dnt" style="font-weight:700;margin:6px 0 12px">Tap for an idea you can do together while apart.</p>
+      <button class="soft" id="dnb">Surprise us</button>
+    </div>
+    <div class="card">
+      <h2>Tic-tac-toe</h2>
+      <div class="mute" id="tmsg"></div>
+      <div class="board" id="board"></div>
+      <button class="soft" id="treset">New game</button>
+    </div>
+    <div class="card">
+      <h2>Would you rather</h2>
+      <div id="wopts"></div>
+      <p class="mute" id="wres"></p>
+      <button class="soft" id="wnext">Next question</button>
+    </div>
+  </section>
+
+  <section id="faith">
+    <div class="card">
+      <div class="mute">Verse for today</div>
+      <div class="serif vt" id="vt"></div>
+      <div class="mute" id="vr"></div>
+      <button class="soft" id="vs" style="margin-top:12px">Send to them</button>
+    </div>
+    <div class="card"><h2>Talk about it today</h2><p id="dq" style="margin:6px 0 0"></p></div>
+    <div class="card">
+      <h2>Prayer requests</h2>
+      <div class="row" style="flex-wrap:nowrap;margin-bottom:6px"><input id="pi" placeholder="How can we pray?" maxlength="200"><button id="ps">Add</button></div>
+      <div id="pl"></div>
+    </div>
+  </section>
+
+  <section id="notes">
+    <div class="card">
+      <h2>Little notes</h2>
+      <div class="notes" id="nl"></div>
+      <div class="row" style="flex-wrap:nowrap"><input id="ni" placeholder="Say something sweet" maxlength="300"><button id="ns">Send</button></div>
+    </div>
+  </section>
+
+  <section id="video">
+    <div class="vwrap"><video id="them" autoplay playsinline></video><video id="me" autoplay playsinline muted></video><div class="empty" id="vempty">Tap Call to ring your person</div></div>
+    <div class="row" style="justify-content:center"><button id="callBtn">Call</button><button class="soft" id="endBtn" disabled>Hang up</button></div>
+    <p class="mute" style="text-align:center" id="cmsg"></p>
+  </section>
+</div>
+
+<nav class="tabs" id="tabs" hidden>
+  <button class="on" data-t="home"><span>💙</span>Home</button>
+  <button data-t="play"><span>🎲</span>Play</button>
+  <button data-t="faith"><span>✝️</span>Faith</button>
+  <button data-t="notes"><span>💌</span>Notes</button>
+  <button data-t="video"><span>📹</span>Video</button>
+</nav>
+<div class="pop" id="pop">💙</div>
+
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const G=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const S=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const D=k=>{try{localStorage.removeItem(k)}catch(e){}};
+const root=document.documentElement;
+
+/* theme */
+function theme(t){root.dataset.theme=t;$('#theme').textContent=t==='dark'?'☀️':'🌙';document.querySelector('meta[name=theme-color]').content=t==='dark'?'#0a1620':'#a9dcf7'}
+theme(G('fk_theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
+$('#theme').onclick=()=>{const t=root.dataset.theme==='dark'?'light':'dark';S('fk_theme',t);theme(t)};
+
+/* tabs */
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#tabs button,section').forEach(e=>e.classList.remove('on'));
+  b.classList.add('on');$('#'+b.dataset.t).classList.add('on');scrollTo(0,0);
+});
+
+function pop(e='💙'){const p=$('#pop');p.textContent=e;p.classList.add('show');navigator.vibrate&&navigator.vibrate(60);setTimeout(()=>p.classList.remove('show'),1100)}
+
+/* pairing */
+const ALPH='ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+const newCode=()=>Array.from(crypto.getRandomValues(new Uint8Array(6)),n=>ALPH[n%ALPH.length]).join('');
+let pair=null;try{pair=JSON.parse(G('fk_pair'))}catch(e){}
+const ov=id=>{document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on'));if(id)$('#'+id).classList.add('on')};
+function savePair(p){pair=p;S('fk_pair',JSON.stringify(p))}
+$('#mk').onclick=()=>{savePair({code:newCode(),role:'a'});$('#codeBig').textContent=pair.code;ov('show')};
+$('#hv').onclick=()=>{ov('join');$('#ci').focus()};
+$('#jb').onclick=()=>ov('welcome');
+$('#jn').onclick=()=>{
+  const c=$('#ci').value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(c.length!==6){$('#cerr').textContent='The code is 6 characters. Check it and try again.';return}
+  savePair({code:c,role:'b'});enter();
+};
+$('#cp').onclick=async()=>{try{await navigator.clipboard.writeText(pair.code);$('#cp').textContent='Copied'}catch(e){$('#cp').textContent=pair.code}};
+$('#sh').onclick=()=>{const t='Our code for For Kaylee: '+pair.code+' — open '+location.href.split('#')[0];navigator.share?navigator.share({text:t}).catch(()=>{}):navigator.clipboard&&navigator.clipboard.writeText(t)};
+$('#go').onclick=enter;
+$('#unpair').onclick=()=>{if(!confirm('Disconnect and use a different code?'))return;D('fk_pair');location.reload()};
+
+/* networking (PeerJS: connects the two phones directly) */
+let peer=null,conn=null,live=false,theirs='';
+const idOf=(c,r)=>'forkaylee-'+c.toLowerCase()+'-'+r;
+function setState(s){
+  const t={wait:'Waiting for your person…',live:'Your person is here',busy:'This code is open in another window',off:'Connection problem, retrying…'}[s];
+  $('#stxt').textContent=t;$('#state').classList.toggle('live',s==='live');$('#hero').classList.toggle('live-on',s==='live');$('#orb2').setAttribute('opacity',s==='live'?'1':'.55');
+}
+function startNet(){
+  if(!window.Peer){setState('off');return}
+  const other=pair.role==='a'?'b':'a';theirs=idOf(pair.code,other);
+  peer=new Peer(idOf(pair.code,pair.role));
+  peer.on('open',()=>{setState('wait');dial()});
+  peer.on('connection',attach);
+  peer.on('call',incoming);
+  peer.on('disconnected',()=>{try{peer.reconnect()}catch(e){}});
+  peer.on('error',e=>{if(e.type==='unavailable-id')setState('busy');else if(e.type!=='peer-unavailable')setState('off')});
+  setInterval(()=>{if(peer&&peer.open&&!live)dial()},4000);
+}
+function dial(){if(pair.role!=='a'||live)return;attach(peer.connect(theirs,{reliable:true}))}
+function attach(c){
+  const up=()=>{conn=c;live=true;setState('live');tx({t:'dates',start:G('fk_start'),visit:G('fk_visit')});hello();sendP();drawT();};
+  c.on('open',up);if(c.open)up();
+  c.on('data',onData);
+  c.on('close',()=>{if(conn===c){live=false;conn=null;setState('wait')}});
+  c.on('error',()=>{});
+}
+const tx=o=>{if(conn&&conn.open)conn.send(o)};
+
+/* dates */
+function dates(){
+  const s=G('fk_start'),v=G('fk_visit');
+  if(s){$('#start').value=s;const n=Math.max(0,Math.floor((new Date()-new Date(s+'T00:00'))/864e5));$('#days').textContent=n;$('#since').textContent=(n===1?'day':'days')+' together'}
+  else{$('#days').textContent='–';$('#since').textContent='Add the day you got together below'}
+  if(v){$('#visit').value=v;const d=Math.ceil((new Date(v+'T23:59')-new Date())/864e5);$('#vdays').textContent=d>1?d+' days until you’re together':d===1?'See them tomorrow!':d===0?'Today’s the day!':''}else $('#vdays').textContent=''
+}
+$('#start').onchange=e=>{S('fk_start',e.target.value);dates();tx({t:'dates',start:e.target.value})};
+$('#visit').onchange=e=>{S('fk_visit',e.target.value);dates();tx({t:'dates',visit:e.target.value})};
+
+
+/* games */
+const X=pair&&pair.role==='a'?'X':'O';
+let T={b:Array(9).fill(''),n:'X',w:''};
+const L=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+const win=b=>{for(const[a,c,d]of L)if(b[a]&&b[a]===b[c]&&b[a]===b[d])return b[a];return b.every(x=>x)?'draw':''};
+function drawT(){
+  const me=pair&&pair.role==='a'?'X':'O';
+  $('#board').innerHTML='';
+  T.b.forEach((v,i)=>{const c=document.createElement('button');c.className='cell';c.textContent=v==='X'?'💙':v==='O'?'🤍':'';c.setAttribute('aria-label','square '+(i+1));c.onclick=()=>{if(T.b[i]||T.w||T.n!==me)return;T.b[i]=me;T.w=win(T.b);T.n=me==='X'?'O':'X';drawT();tx({t:'ttt',T})};$('#board').appendChild(c)});
+  $('#tmsg').textContent=T.w==='draw'?'A draw!':T.w?(T.w===me?'You win! 🎉':'They win 💙'):T.n===me?'Your turn (you’re 💙)'.replace('💙',me==='X'?'💙':'🤍'):'Their turn…';
+}
+$('#treset').onclick=()=>{T={b:Array(9).fill(''),n:'X',w:''};drawT();tx({t:'ttt',T})};
+const Q=[["Cuddle on the couch all day","Take a spontaneous trip"],["Live together but never travel","Travel the world but live apart"],["Cook dinner together","Order in and watch a movie"],["Beach vacation","Cabin in the mountains"],["Handwritten letters","Surprise packages"],["A call every morning","A long call every night"],["Dance in the rain","Stargaze all night"],["A house full of pets","A house full of plants"],["Always know what to say","Always know what to wear"],["Relive our first date","Skip ahead to our next visit"]];
+let W={i:0,m:null,t:null};
+function drawW(){
+  $('#wopts').innerHTML='';
+  Q[W.i].forEach((s,k)=>{const b=document.createElement('button');b.className='opt'+(W.m===k?' sel':'');b.textContent=s;b.onclick=()=>{W.m=k;tx({t:'wyr',i:W.i,k});drawW()};$('#wopts').appendChild(b)});
+  $('#wres').textContent=W.m===null?'Pick one.':W.t===null?'Waiting for their pick…':W.m===W.t?'Same answer! 💙':'Different picks. Ask them why.';
+}
+$('#wnext').onclick=()=>{W={i:(W.i+1)%Q.length,m:null,t:null};tx({t:'wyr',i:W.i,next:1});drawW()};
+
+/* notes */
+let N=[];try{N=JSON.parse(G('fk_notes'))||[]}catch(e){}
+function drawN(){const l=$('#nl');l.innerHTML='';if(!N.length){l.innerHTML='<div class="mute">No notes yet. Leave one for them.</div>'}N.forEach(n=>{const d=document.createElement('div');d.className='bub'+(n.me?' me':'');d.textContent=n.x;l.appendChild(d)});l.scrollTop=l.scrollHeight}
+function addN(x,me){N.push({x,me});N=N.slice(-60);S('fk_notes',JSON.stringify(N));drawN()}
+$('#ns').onclick=()=>{const v=$('#ni').value.trim();if(!v)return;if(!live){$('#ni').placeholder='They need to be online to get it';return}addN(v,true);tx({t:'note',x:v});$('#ni').value=''};
+$('#ni').onkeydown=e=>{if(e.key==='Enter')$('#ns').click()};
+
+function onData(m){
+  if(!m)return;onMore(m);
+  if(m.t==='heart')pop();
+  if(m.t==='dates'){if(m.start){S('fk_start',m.start)}if(m.visit){S('fk_visit',m.visit)}dates()}
+  if(m.t==='ttt'){T=m.T;drawT()}
+  if(m.t==='wyr'){if(m.next)W={i:m.i,m:null,t:null};else{W.i=m.i;W.t=m.k}drawW()}
+  if(m.t==='note'){addN(String(m.x).slice(0,300),false);navigator.vibrate&&navigator.vibrate(40)}
+}
+
+/* video call */
+let call=null,local=null,inc=null;
+const cmsg=t=>$('#cmsg').textContent=t;
+async function media(){if(!local)local=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:true});$('#me').srcObject=local}
+function wire(c){
+  call=c;$('#endBtn').disabled=false;$('#callBtn').disabled=true;
+  c.on('stream',s=>{$('#them').srcObject=s;$('#vempty').style.display='none';cmsg('')});
+  c.on('close',endCall);c.on('error',endCall);
+}
+function endCall(){
+  if(call){try{call.close()}catch(e){}call=null}
+  if(local){local.getTracks().forEach(t=>t.stop());local=null}
+  $('#them').srcObject=null;$('#me').srcObject=null;$('#vempty').style.display='grid';$('#vempty').textContent='Call ended';
+  $('#endBtn').disabled=true;$('#callBtn').disabled=false;ov(null);
+}
+$('#callBtn').onclick=async()=>{
+  if(!peer||!peer.open){cmsg('Still connecting. Try again in a moment.');return}
+  try{await media()}catch(e){cmsg('Camera or microphone is blocked. Allow access in your browser settings.');return}
+  $('#vempty').textContent='Calling…';wire(peer.call(theirs,local));
+};
+$('#endBtn').onclick=endCall;
+function incoming(c){inc=c;ov('ring');navigator.vibrate&&navigator.vibrate([200,100,200])}
+$('#ans').onclick=async()=>{
+  ov(null);document.querySelector('[data-t=video]').click();
+  try{await media();inc.answer(local);wire(inc)}catch(e){cmsg('Camera or microphone is blocked. Allow access in your browser settings.')}
+};
+$('#dec').onclick=()=>{try{inc.close()}catch(e){}inc=null;ov(null)};
+
+
+/* reactions, mood, names, their time */
+document.querySelectorAll('.rx').forEach(b=>b.onclick=()=>{pop(b.dataset.e);tx({t:'react',e:b.dataset.e})});
+['🥰','😊','😴','😔','🙏','🎉'].forEach(e=>{const b=document.createElement('button');b.className='mood'+(G('fk_mood')===e?' on':'');b.textContent=e;b.onclick=()=>{S('fk_mood',e);document.querySelectorAll('.mood').forEach(x=>x.classList.toggle('on',x===b));tx({t:'mood',e})};$('#moods').appendChild(b)});
+const tz=()=>{try{return Intl.DateTimeFormat().resolvedOptions().timeZone}catch(e){return''}};
+function hello(){tx({t:'hello',n:G('fk_name')||'',e:G('fk_mood')||'',z:tz()})}
+function line(){
+  const n=G('fk_their')||'Them';let s='';const m=G('fk_tmood'),z=G('fk_tz');
+  if(m)s+=n+' is feeling '+m;
+  if(z){try{s+=(s?' · ':'')+'their time is '+new Date().toLocaleTimeString([],{timeZone:z,hour:'numeric',minute:'2-digit'})}catch(e){}}
+  $('#theirline').textContent=s;$('#l2').textContent=n.slice(0,7);$('#l1').textContent=(G('fk_name')||'You').slice(0,7);
+}
+setInterval(line,30000);
+$('#nm').onchange=e=>{S('fk_name',e.target.value.trim());line();hello()};
+
+/* date night */
+const DN=["Watch the same movie while on a call","Read a chapter of John together, then share what stood out","Cook the same recipe on video","Pick a worship song and sing it together on a call","Write each other letters and open them on a call","Take a sunset walk and call each other","Do a devotional together, then pray for each other","Stargaze together on a call","Plan your dream first home","Play an online board game together"];
+$('#dnb').onclick=()=>{const i=Math.random()*DN.length|0;$('#dnt').textContent=DN[i];tx({t:'dn',i})};
+
+/* Bible trivia */
+const TQ=[["Who built the ark?",["Moses","Noah","Abraham","Elijah"],1,"Genesis 6:14"],["On which day did God rest from creating?",["Third","Fifth","Seventh","Tenth"],2,"Genesis 2:2"],["Who was swallowed by a great fish?",["Jonah","Peter","Paul","Job"],0,"Jonah 1:17"],["How many disciples did Jesus choose?",["7","10","12","40"],2,"Luke 6:13"],["In which town was Jesus born?",["Nazareth","Bethlehem","Jericho","Capernaum"],1,"Matthew 2:1"],["“The Lord is my ___, I shall not want.”",["rock","light","shepherd","king"],2,"Psalm 23:1"],["Who denied knowing Jesus three times?",["Judas","Thomas","John","Peter"],3,"Matthew 26:75"],["What did David use to defeat Goliath?",["A sword","A sling and a stone","A spear","A bow"],1,"1 Samuel 17:50"],["What did Jesus turn water into at Cana?",["Milk","Oil","Wine","Honey"],2,"John 2:9"],["Who was thrown into the lions’ den?",["Daniel","Samson","Joseph","Gideon"],0,"Daniel 6:16"],["Finish it: “God is ___.”",["light","love","just","near"],1,"1 John 4:8"],["On which day did Jesus rise from the dead?",["The first","The second","The third","The seventh"],2,"1 Corinthians 15:4"]];
+let TR={on:false};
+const shuf=n=>{const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+function trStart(o){TR={on:true,o,i:0,m:null,t:null,sm:0,st:0,d:false}}
+function drawTR(){
+  const b=$('#trv');b.innerHTML='';
+  const btn=(t,f,c)=>{const x=document.createElement('button');x.textContent=t;if(c)x.className=c;x.onclick=f;return x};
+  const p=t=>{const e=document.createElement('p');e.className='mute';e.textContent=t;return e};
+  if(!TR.on){b.append(p(TQ.length+' questions. Answer together and see who knows the Word best.'),btn('Start',()=>{trStart(shuf(TQ.length));tx({t:'trs',o:TR.o});drawTR()}));return}
+  const sc=p('You '+TR.sm+'  ·  '+(G('fk_their')||'Them')+' '+TR.st);
+  if(TR.i>=TQ.length){const h=document.createElement('div');h.className='serif';h.style.fontSize='22px';h.textContent=TR.sm===TR.st?'A tie. Well done, both of you!':TR.sm>TR.st?'You win this round!':'They win this round!';b.append(h,sc,p('“Thy word is a lamp unto my feet.” Psalm 119:105'),btn('Play again',()=>{trStart(shuf(TQ.length));tx({t:'trs',o:TR.o});drawTR()}));return}
+  const q=TQ[TR.o[TR.i]],rv=TR.m!==null&&(TR.t!==null||!live);
+  if(rv&&!TR.d){TR.d=true;if(TR.m===q[2])TR.sm++;if(TR.t===q[2])TR.st++;sc.textContent='You '+TR.sm+'  ·  '+(G('fk_their')||'Them')+' '+TR.st}
+  const h=document.createElement('div');h.style.fontWeight='800';h.textContent=(TR.i+1)+' of '+TQ.length+': '+q[0];b.append(h);
+  q[1].forEach((o,k)=>{const x=btn(o,()=>{if(TR.m!==null)return;TR.m=k;tx({t:'tra',i:TR.i,k});drawTR()},'opt'+(rv?(k===q[2]?' ok':k===TR.m?' bad':''):TR.m===k?' sel':''));b.append(x)});
+  b.append(p(rv?q[3]+(TR.t===null?'':TR.t===q[2]?'  ·  They got it right':'  ·  They missed it'):TR.m===null?'Pick an answer.':'Waiting for their answer…'),sc);
+  if(rv)b.append(btn('Next',()=>{trNext(TR.i+1);tx({t:'trn',i:TR.i})}));
+}
+function trNext(i){if(TR.i<i){TR.i=i;TR.m=null;TR.t=null;TR.d=false}drawTR()}
+
+/* Faith: verse, question, prayers */
+const VS=[["Two are better than one… a threefold cord is not quickly broken.","Ecclesiastes 4:9, 12"],["Trust in the LORD with all thine heart; and lean not unto thine own understanding.","Proverbs 3:5"],["This is my commandment, That ye love one another, as I have loved you.","John 15:12"],["Fear thou not; for I am with thee: be not dismayed; for I am thy God.","Isaiah 41:10"],["I can do all things through Christ which strengtheneth me.","Philippians 4:13"],["And above all these things put on charity, which is the bond of perfectness.","Colossians 3:14"],["Be strong and of a good courage; be not afraid… for the LORD thy God is with thee whithersoever thou goest.","Joshua 1:9"],["God is our refuge and strength, a very present help in trouble.","Psalm 46:1"],["But seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you.","Matthew 6:33"],["We love him, because he first loved us.","1 John 4:19"]];
+const DQ=["What is one way God showed up for you this week?","How can I pray for you today?","What Bible story has meant the most to you lately?","What is one thing you are thankful God gave us?","Where do you need strength this week?","What verse would you like us to memorize together?","How did you see God’s kindness today?","Which prayer has God answered for you?","What is your favorite worship song right now?"];
+let P=[];try{P=JSON.parse(G('fk_pr'))||[]}catch(e){}
+const doy=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/864e5);
+function saveP(){S('fk_pr',JSON.stringify(P.slice(-40)))}
+function sendP(){tx({t:'prs',p:P})}
+function drawFaith(){
+  const v=VS[doy%VS.length];$('#vt').textContent='“'+v[0]+'”';$('#vr').textContent=v[1]+' (KJV)';$('#dq').textContent=DQ[doy%DQ.length];
+  const l=$('#pl');l.innerHTML='';
+  if(!P.length){const e=document.createElement('div');e.className='mute';e.textContent='Nothing yet. Add something to pray about together.';l.appendChild(e)}
+  P.slice().reverse().forEach(r=>{
+    const d=document.createElement('div');d.className='pr'+(r.d?' dn':'');
+    const s=document.createElement('div');const t=document.createElement('span');t.textContent=r.x;const w=document.createElement('small');w.textContent=r.by===pair.role?'You':(G('fk_their')||'Them');s.append(t,w);
+    const k=document.createElement('button');k.textContent=r.d?'🙌':'🙏';k.setAttribute('aria-label',r.d?'Mark as not answered':'Mark as answered');k.onclick=()=>{r.d=!r.d;saveP();sendP();drawFaith()};
+    d.append(s,k);l.appendChild(d);
+  });
+}
+$('#ps').onclick=()=>{const v=$('#pi').value.trim();if(!v)return;P.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),x:v,by:pair.role,d:false});saveP();sendP();$('#pi').value='';drawFaith()};
+$('#pi').onkeydown=e=>{if(e.key==='Enter')$('#ps').click()};
+$('#vs').onclick=()=>{const v=VS[doy%VS.length];const x='“'+v[0]+'” '+v[1];if(!live){$('#vs').textContent='They need to be online';return}addN(x,true);tx({t:'note',x});$('#vs').textContent='Sent'};
+
+function onMore(m){
+  if(m.t==='hello'){S('fk_their',m.n||'');S('fk_tmood',m.e||'');S('fk_tz',m.z||'');line();drawFaith()}
+  if(m.t==='mood'){S('fk_tmood',m.e);line()}
+  if(m.t==='dn')$('#dnt').textContent=DN[m.i]||'';
+  if(m.t==='trs'){trStart(m.o);drawTR()}
+  if(m.t==='tra'&&TR.on&&TR.i===m.i){TR.t=m.k;drawTR()}
+  if(m.t==='trn'&&TR.on){trNext(m.i)}
+  if(m.t==='prs'&&Array.isArray(m.p)){const by=new Map(P.map(r=>[r.id,r]));m.p.forEach(r=>{if(!r||!r.id)return;const o=by.get(r.id);if(o)o.d=o.d||!!r.d;else P.push({id:String(r.id),x:String(r.x).slice(0,200),by:r.by,d:!!r.d})});saveP();drawFaith()}
+}
+
+
+/* photo */
+function setPh(u){$('#hp').src=u;$('#logo').src=u}
+{const u=G('fk_photo');if(u)setPh(u)}
+$('#chp').onclick=()=>$('#pf').click();
+$('#pf').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);const u=c.toDataURL('image/jpeg',.85);S('fk_photo',u);setPh(u)};im.src=r.result};r.readAsDataURL(f)};
+
+/* start */
+function enter(){
+  ov(null);$('#app').hidden=false;$('#tabs').hidden=false;
+  $('#mycode').textContent=pair.code;dates();drawT();drawW();drawN();drawTR();drawFaith();line();$('#nm').value=G('fk_name')||'';setState('wait');startNet();
+}
+if(pair){enter()}else{ov('welcome')}
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
